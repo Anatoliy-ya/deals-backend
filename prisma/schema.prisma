@@ -14,10 +14,14 @@ datasource db {
 }
 
 model Deal {
-  id        Int      @id @default(autoincrement())
-  title     String
-  status    Status
-  createdAt DateTime @default(now())
+  id          Int       @id @default(autoincrement())
+  title       String
+  status      Status
+  createdAt   DateTime  @default(now())
+  numberPhone String
+  budget      Int
+  fullName    String
+  comments    Comment[]
 }
 
 enum Status {
@@ -26,4 +30,12 @@ enum Status {
   ALMOST_FINISHED
   SUCCESSFUL
   FAILED
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  dealId    Int
+  deal      Deal     @relation(fields: [dealId], references: [id])
 }
